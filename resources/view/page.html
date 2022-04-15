@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+    <link rel="stylesheet" href="css/form.css">
+    <script type="text/javascript" src="js/main.js"></script>
+
+</head>
+<body>
+
+<div>
+    <button class="open-button" onclick="openForm('myForm')">Izveidot formu</button>
+</div>
+
+<div>
+    <label for="person"> Personas kods:
+         <input type="text" id="person" maxlength="12" oninput="checkInput()" onkeyup="more()"/>
+         [Ievērot XXXXXX-XXXXX] [ X apzīmē ciparu ]
+    </label>
+    <form action="#">
+        <button type="submit" onclick="searchByPersonsId()"> Meklēt </button>
+    </form>
+</div>
+
+
+<ul id="myList"></ul>
+
+</body>
+</html>
+
+<div class="form-popup" id="myForm">
+    <p>
+        <table>
+            <th>Informācija par pacientu</th>
+            <tr>
+                <td> Datums</td>
+                <td><input type="date" id="one"></td>
+            </tr>
+
+            <tr>
+                <td> Vārds</td>
+                <td><input type="text" id="two"></td>
+            </tr>
+
+            <tr>
+                <td> Uzvārds</td>
+                <td><input type="text" id="three"></td>
+            </tr>
+
+            <tr>
+                <td> Personas kods</td>
+                <td><form onkeyup="validateFour()"><input type="text" id="four"/></form>
+                <input id="validation" value=""/></td>
+            </tr>
+
+            <tr>
+                <td> Sūdzības un anamnēze</td>
+                <td><input type="text" id="five"></td>
+            </tr>
+
+            <tr>
+                <td> Blakus slimības</td>
+                <td><input type="text" id="six"></td>
+            </tr>
+
+            <tr>
+                <td> Medikamentu nepanesamība</td>
+                <td><input type="text" id="seven"></td>
+            </tr>
+
+            <th>Deguns</th>
+
+            <tr>
+                <td> Ārējā forma[obligāts]</td>
+                <td>
+                    <input list="list_eight" id="eight" onkeyup="autoSetNine(this.value)">
+                        <datalist id="list_eight">
+                            <option value="taisna">taisna</option>
+                            <option value="deformēta">deformēta</option>
+                        </datalist>
+                    </input>
+                </td>
+            </tr>
+
+        </table>
+
+    <button type="button" class="btn cancel" onclick="closeForm('myForm')">Atcelt</button>
+    <button type="button" class="btn cancel" onclick="sendJSON()">Turpināt</button>
+    <p class="result" style="color: green"> </p>
+    </p>
+</div>
+
+<div class="form-popup" id="myFormTwo">
+    <table>
+        <tr>
+            <td> Gļotāda</td>
+            <td>
+                <input list="list_nine" id="nine1" onkeyup="updateInput(this.value)">
+                    <datalist id="list_nine">
+                        <option value="sārta">sārta</option>
+                        <option value="hipermēta">hipermēta</option>
+                        <option value="cianotiska">cianotiska</option>
+                        <option value="bāla">bāla</option>
+                    </datalist>
+            </td>
+            <td>
+                <input list="list_nine2" id="nine2" onkeyup="updateInput(this.value)">
+                    <datalist id="list_nine2">
+                        <option value="tūskaina"> tūskaina</option>
+                        <option value="atrofiska"> atrofiska</option>
+                        <option value="hipertrofiska"> hipertrofiska</option>
+                    </datalist>
+
+                <input type="text" id="nine" value="">
+            </td>
+        </tr>
+
+        <tr>
+            <td> Deguna ejas</td>
+            <td>
+                <input type="email" list="nose_canals" id="ten" size="64" multiple>
+                    <datalist id="nose_canals">
+                        <option value="brīvas">brīvas</option>
+                        <option value="sašaurinātas">sašaurinātas</option>
+                        <option value="saaugumi">saaugumi</option>
+                        <option value="veidojumi">veidojumi</option>
+                    </datalist>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td> Atdalījumi</td>
+            <td>
+                <input type="checkbox" value="nav" id="eleven"> nav
+            </td>
+            <td>
+                <label for="eleven"> ir </label>
+                <input type="email" list="separations" id="eleven" class="eleven" size="64" multiple>
+                    <datalist id="separations">
+                        <option value="seriozi">serozi</option>
+                        <option value="gļotaini">gļotaini</option>
+                        <option value="strutaini">strutaini</option>
+                        <option value="asiņaini">asiņaini</option>
+                    </datalist>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Deguna Starpsiena</td>
+            <td>
+                <select type="text" id="twelve">
+                    <option hidden disabled selected value></option>
+                    <option value="taisna">taisna</option>
+                    <option value="deviēta">deviēta</option>
+                    <option value="perforēta">perforēta</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Elpošana caur degunu </td>
+            <td>
+                <select type="text" id="thirteen">
+                    <option hidden disabled selected value></option>
+                    <option value="brīva">brīva</option>
+                    <option value="apgrūtināta">apgrūtināta</option>
+                </select>
+            </td>
+        </tr>
+
+        <th> Mutes dobums</th>
+
+        <tr>
+            <td> Rīkle</td>
+            <td> ģlotāda:
+                <input list="list_fourteen" id="fourteen1" onkeyup="updateInputTwo(this.value)">
+                <datalist id="list_fourteen">
+                    <option value="sārta">sārta</option>
+                    <option value="hipermēta">hipermēta</option>
+                    <option value="cianotiska">cianotiska</option>
+                    <option value="bāla">bāla</option>
+                </datalist>
+            </td>
+            <td>
+                <input list="list_fourteen2" id="fourteen2" onkeyup="updateInputTwo(this.value)">
+                <datalist id="list_fourteen2">
+                    <option value="tūskaina"> tūskaina</option>
+                    <option value="atrofiska"> atrofiska</option>
+                    <option value="hipertrofiska"> hipertrofiska</option>
+                </datalist>
+
+                <input type="text" id="fourteen" value="">
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Mandeles </td>
+            <td>
+                <input list="list_fifteen" id="fifteen1" onkeyup="updateInputThree(this.value)">
+                    <datalist id="list_fifteen">
+                        <option value="taisna">Parasta lieluma</option>
+                        <option value="deformēta">Palielinātas</option>
+                    </datalist>
+            </td>
+            <td> Aplikums:
+                <input list="list_fifteen2" id="fifteen2" onkeyup="updateInputThree(this.value)">
+                <datalist id="list_fifteen2">
+                    <option value="ir"> ir</option>
+                    <option value="nav"> nav</option>
+                </datalist>
+                <input type="text" id="fifteen" value="">
+            </td>
+        </tr>
+    </table>
+
+    <form method="post" action="/delete/last">
+        <button type="submit" class="btn cancel">Atcelt</button>
+    </form>
+
+    <button type="button" class="btn" onclick="sendJSONTwo();closeForm('myFormTwo')">Turpināt</button>
+</div>
+
+<div class="form-popup" id="display">
+    <table>
+        <th>Informācija par pacientu</th>
+        <tr>
+            <td> Datums</td>
+            <td><p id="1"> Hello <?=$user->id?>!</p></td>
+        </tr>
+
+        <tr>
+            <td> Vārds</td>
+            <td><p id="2"> </p></td>
+        </tr>
+
+        <tr>
+            <td> Uzvārds</td>
+            <td><p id="3"> </p></td>
+        </tr>
+
+        <tr>
+            <td> Personas kods</td>
+            <td><p id="4"> </p></td>
+        </tr>
+
+        <tr>
+            <td> Sūdzības un anamnēze</td>
+            <td><p id="5"> </p></td>
+        </tr>
+
+        <tr>
+            <td> Blakus slimības</td>
+            <td><p id="6"> </p></td>
+        </tr>
+
+        <tr>
+            <td> Medikamentu nepanesamība</td>
+            <td><p id="7"> </p></td>
+        </tr>
+
+        <th>Deguns</th>
+
+        <tr>
+            <td> Ārējā forma</td>
+            <td>
+                <p id="8"> </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Gļotāda</td>
+            <td>
+                <p id="9"> </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Deguna ejas</td>
+            <td>
+                <p id="10"> </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Atdalījumi</td>
+            <td>
+                <p id="11"> </p>
+        </tr>
+
+        <tr>
+            <td> Deguna Starpsiena</td>
+            <td>
+                <p id="12"> </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Elpošana caur degunu </td>
+            <td>
+                <p id="13"> </p>
+            </td>
+        </tr>
+
+        <th> Mutes dobums</th>
+
+        <tr>
+            <td> Rīkle</td>
+            <td> ģlotāda:
+                <p id="14"> </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> Mandeles </td>
+            <td>
+                <p id="15"> </p>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" class="btn" onclick="closeForm('display')">Aizvērt</button>
+</div>
