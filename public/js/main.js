@@ -160,7 +160,6 @@ function more() {
     function doneTyping() {
         var p = $('#person').val();
         $.post('search', {id: p}, function (data) {
-            console.log('success', data);
             $("#person").autocomplete({
                 source: data.map(one => one['4']),
             });
@@ -189,7 +188,6 @@ function searchByPersonsId() {
     var p = $('#person').val();
     let list = document.getElementById("myList")
     $.post('search/full', {id: p}, function (data) {
-        console.log('success', data);
         data.forEach((item) => {
             var date = new Date(item['created_at']);
             var day = date.getDate();
