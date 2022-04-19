@@ -8,11 +8,6 @@ function closeForm(name) {
 
 function sendJSON() {
 
-    if ($("#validation").val() !== "true") {
-        alert("Nepareizs personas koda formāts. Jābūt[X = cipars]: XXXXXX-XXXXX");
-        return;
-    }
-
     let result = document.querySelector('.result');
     let one = document.querySelector('#one');
     let two = document.querySelector('#two');
@@ -138,13 +133,6 @@ function autoSetNine() {
     }
 }
 
-function validateFour() {
-    var input = document.getElementById('four').value;
-    var regex = /^(\d{6})-[012]\d{4}$/;
-    var result = regex.test(input);
-    $("#validation").val(result.toString());
-}
-
 function more() {
 
     var typingTimer;
@@ -223,20 +211,18 @@ function searchByPersonsId() {
     })
 }
 
-function checkInput() {
-    var inp = $('#person').val();
+function checkInput(form) {
+    var inp = $('#' + form).val();
     var len = inp.length;
-    var lastChar = inp.substr(inp.length - 1); // => "1"
+    var lastChar = inp.substr(inp.length - 1);
     var ret = inp.slice(0, -1);
     if (len !== 7) {
         if (isNaN(lastChar) === true) {
-            $('#person').val(ret)
-            return document.getElementById('errorname').innerHTML="this is an invalid name";
+            return $('#' + form).val(ret)
         }
     } else {
         if (lastChar !== '-') {
-            $('#person').val(ret);
-            return document.getElementById('errorname').innerHTML="this is an invalid name";
+            return $('#' + form).val(ret);
         }
     }
 }

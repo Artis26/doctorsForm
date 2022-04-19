@@ -12,6 +12,9 @@ use Slim\Views\PhpRenderer;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/');
+$dotenv->load();
+
 $app = AppFactory::create();
 
 $con = $app->getContainer();
@@ -21,7 +24,7 @@ $container['HomeController'] = function() {
 
 $app->get('/', function (Request $request,Response $response, $args) {
     $renderer = new PhpRenderer(__DIR__.'/../resources/view');
-    return $renderer->render($response, "page.html", ['hi' => 'hi']);
+    return $renderer->render($response, "page.html");
 });
 
 $app->post('/search/full', HomeController::class.':getFormByPersonsId');

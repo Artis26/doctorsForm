@@ -20,7 +20,7 @@
 
 <div>
     <label for="person"> Personas kods:
-         <input type="text" id="person" maxlength="12" oninput="checkInput()" onkeyup="more()"/>
+         <input type="text" id="person" maxlength="12" oninput="checkInput('person')" onkeyup="more()"/>
          [Ievērot XXXXXX-XXXXX] [ X apzīmē ciparu ]
     </label>
     <form action="#">
@@ -55,8 +55,7 @@
 
             <tr>
                 <td> Personas kods</td>
-                <td><form onkeyup="validateFour()"><input type="text" id="four"/></form>
-                <input id="validation" value=""/></td>
+                <td><form><input type="text" id="four" maxlength="12" onkeyup="checkInput('four')"/></form>
             </tr>
 
             <tr>
