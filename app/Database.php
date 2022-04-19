@@ -4,7 +4,6 @@ namespace App;
 
 use PDO;
 use PDOException;
-use function DI\env;
 
 class  Database extends PDO{
 
