@@ -30,7 +30,7 @@
         "components/backbone": "^1.2",
         "components/jquery": "^3.6",
         "lulco/phoenix": "^2.0",
-        "monolog/monolog": "^2.4",
+        "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.3",
         "slim/http": "^1.2",
         "slim/php-view": "^3.1",
